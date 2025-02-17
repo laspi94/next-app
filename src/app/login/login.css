@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root {
+    /* Base Colors */
+    --base-clr: #CBD5E1;
+    /* Gris claro */
+    --container-clr: #F8FAFC;
+    /* Blanco suave */
+    --line-clr: #93C5FD;
+    /* Azul claro para líneas */
+    --hover-clr: #2563EB;
+    /* Azul secundario para hover */
+    --bg-clr: #1E3A8A;
+    /* Negro principal para fondo */
+    --text-clr: #FFFFFF;
+    /* Blanco puro para texto principal */
+    --accent-clr: #1E3A8A;
+    /* Azul principal para acentos */
+    --secondary-text-clr: #334155;
+    /* Gris oscuro para texto secundario */
+}
+
+body {
+    background-color: var(--bg-clr);
+}
+
+.rounded-container {
+    border-radius: 15px;
+    /* Adjust the value as needed */
+    padding: 20px;
+    border: 1px solid #ddd;
+    /* Optional border */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: Poppins, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9em;
+    line-height: 1.5rem;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+}
+
+/** Reposiciona la ubicación del "procesando" del datatable */
+div.dt-processing {
+    top: 35% !important;
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    position: fixed !important;
+    left: 44.5% !important;
+}
+
+.control-label.required::after {
+    content: " *" !important;
+    color: red !important;
+}
+
+.btn {
+    min-width: 50px !important;
+}
+
+.btn,
+.btn-sm {
+    margin: 5px;
+    font-size: 11pt !important;
+}
+
+.btn-sys {
+    background-color: var(--bg-clr);
+    color: #e0e3e3;
+    border-color: #e0e3e3;
+}
+
+.btn-sys:hover {
+    background-color: var(--hover-clr);
+    color: #e0e3e3;
+    border-color: #0c545f;
+}
+
+.btn-sys:focus {
+    background-color: var(--accent-clr);
+    color: #e0e3e3;
+    border-color: #093d45;
+}
+
+.disabled-input {
+    background-color: rgb(223, 223, 223)
+}
+
+.disabled-input:focus {
+    background-color: rgb(223, 223, 223);
+    border: none !important;
+}
+
+.inputCurrency {
+    text-align: right;
+}
+
+.collapse-item a {
+    color: #ccc;
+}
+
+.collapse-item a:hover {
+    color: #fff;
+}
+
+.bi {
+    font-size: 20px;
+}
+
+.sidebar .nav-link.active {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-rounded {
+    border-radius: 20px;
+}
+
+.modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}
