@@ -25,7 +25,7 @@ export default function LoginPage() {
         }
     }, [])
 
-    return (<>
+    return (
         <div className="d-flex justify-content-center align-items-center vh-100 container">
             <div className="card rounded-container p-4 shadow-lg" style={{ width: "80%", maxWidth: "450px" }}>
                 <div className="d-flex align-items-center justify-content-between flex-row p-3">
@@ -90,6 +90,5 @@ export default function LoginPage() {
                 </div>
             </div >
         </div >
-    </>
     );
 }

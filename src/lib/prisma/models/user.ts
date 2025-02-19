@@ -1,42 +1,44 @@
+import { bodyRegister } from "@/app/api/register/route";
 import prisma from "../prisma";
 
 export class User {
 
-    static async session() {
-        return await prisma.User.findUnique({
-            by: ["status"],
-            _sum: { amount: true },
-            where: {
-                createdAt: { gte: new Date("2024-01-01") }, // Solo registros de 2024 en adelante
+    static async create(body: bodyRegister) {
+        return await prisma.users.create({
+            data: {
+                name: body.name,
+                email: body.email,
+                password: body.password,
+                id_rol: 1,
             },
         });
     }
 
-    static async create() {
-        return await prisma.User.create({
-            data: {},
-        });
-    }
-
     static async findById(id: number) {
-        return await prisma.User.findUnique({
+        return await prisma.users.findUnique({
             where: { id },
         });
     }
 
-    static async all() {
-        return await prisma.User.findMany();
+    static async findByEmail(email: string) {
+        return await prisma.users.findUnique({
+            where: { email },
+        });
     }
 
-    static async update(id: number, data: { title?: string; content?: string }) {
-        return await prisma.post.update({
+    static async all() {
+        return await prisma.users.findMany();
+    }
+
+    static async update(id: number, data: { name?: string; password?: string; rol?: number }) {
+        return await prisma.users.update({
             where: { id },
             data,
         });
     }
 
     static async delete(id: number) {
-        return await prisma.post.delete({
+        return await prisma.users.delete({
             where: { id },
         });
     }

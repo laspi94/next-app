@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import '../../public/css/bootstrap/bootstrap-5.3.3.min.css'
+import '../../public/css/bootstrap/icons/bootstrap-icons-1.11.3.min.css'
+import '../../public/css/global.css'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,11 +27,6 @@ export default function RootLayout({
         <meta property="og:image:alt" content="Logo" />
         <meta property="og:site_name" content="Top Detailing" />
         <meta property="og:locale" content="es_ES" />
-
-        <link rel="stylesheet" href="css/bootstrap/bootstrap-5.3.3.min.css"></link>
-        <link rel="stylesheet" href="css/bootstrap/icons/bootstrap-icons-1.11.3.min.css"></link>
-
-        <link rel="stylesheet" href="css/app.css"></link>
 
         {/* <!-- Scripts --> */}
         {/* <script type="text/javascript" src="{{ asset('js/poppers/poppers-core-2.9.2.min.js') }}"></script> */}
