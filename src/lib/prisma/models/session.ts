@@ -5,7 +5,7 @@ import prisma from "../prisma";
 
 export class Session {
     /** Recupera la sessión desde un usuario */
-    static async getFromUser(user: users, token: string, refresh_token: string) {
+    static async getFromUser(user: users, token: string) {
         return await prisma.sessions.findFirst({
             where: {
                 id_user: user.id,

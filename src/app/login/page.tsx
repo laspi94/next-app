@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -35,7 +36,7 @@ export default function LoginPage() {
                         <form method="POST" className="w-100" onSubmit={handleSubmit(onSubmit)}>
                             {/* <!-- Logo Section --> */}
                             <div className="text-center">
-                                <img src="/img/logo.png" alt="Logo" className="img-fluid"
+                                <Image src="/img/logo.png" alt="Logo" className="img-fluid"
                                     style={{ maxHeight: "150px" }} />
                             </div>
 
