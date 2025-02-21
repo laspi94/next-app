@@ -15,21 +15,24 @@ export class Session {
     }
 
     /** Crea la sesión del usuario */
-    static async create(user: users, req: NextApiRequest) {
-        const ipAddress = req.headers["x-forwarded-for"]?.toString().split(",")[0] || req.socket?.remoteAddress || "Unknown";
-        const userAgent = req.headers["user-agent"] || "Unknown";
+    static async create(user: users, req: Request) {
 
-        return await prisma.sessions.create({
+        const idAddress = req.headers.get('x-forwarded-for');
+        const userAgent = req.headers.get('user-agent') ?? 'unknown';
+
+        const session = await prisma.sessions.create({
             data: {
                 id_user: user.id,
                 token: Session.generateToken(),
                 refresh_token: Session.generateToken(),
-                ip_address: ipAddress,
+                ip_address: idAddress,
                 user_agent: userAgent,
                 last_activity: Math.floor(Date.now() / 1000)
             }
 
         });
+
+        return session;
     }
 
     /** genera un token para la sesión del usuario */

@@ -5,3 +5,8 @@ export type registerData = {
     password: string,
 }
 
+export type loginData = {
+    email: string,
+    password: string,
+}
+
