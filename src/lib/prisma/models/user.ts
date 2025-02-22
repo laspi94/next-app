@@ -1,12 +1,12 @@
 import { registerData } from "@/lib/auth/types";
 import prisma from "../prisma";
-import { formatBigIntToString } from "@/lib/utils";
+import { formatBigIntToString, UNPROCESSABLE } from "@/lib/utils";
 import { users } from "@prisma/client";
-import { code, ServiceError } from "@/lib/exception";
-
+import { ServiceError } from "@/lib/exception";
 export class User {
 
-    static async formatUserForResponse<T>(user: users): Promise<T> {
+    static async formatUser<T>(user: users): Promise<T> {
+
         const userFormated = {
             ...user,
             id: formatBigIntToString(user.id)
@@ -15,8 +15,20 @@ export class User {
         return userFormated as T;
     }
 
+    static async formatUserForResponse<T>(user: users): Promise<T> {
+
+        const { password, created_at, updated_at, email_verified_at, banned, force_password_change, ...userCleaned } = user;
+
+        const userFormated = {
+            ...userCleaned,
+            id: formatBigIntToString(user.id)
+        };
+
+        return userFormated as T;
+    }
+
     static async create(body: registerData) {
-        let user = await prisma.users.create({
+        const user = await prisma.users.create({
             data: {
                 name: body.name,
                 email: body.email,
@@ -25,23 +37,19 @@ export class User {
             },
         });
 
-        const userFormated = await this.formatUserForResponse(user)
+        const userFormated = await this.formatUser(user)
 
         return userFormated;
     }
 
-    static async findById(id: number) {
+    static async findById(id: number): Promise<users> {
         const user = await prisma.users.findUnique({
             where: { id },
         });
 
-        if (user) {
-            const userFormated = await this.formatUserForResponse(user)
+        const userFormated = await this.formatUser(user!);
 
-            return userFormated;
-        }
-
-        return null;
+        return userFormated as users;
     }
 
     static async findByEmail(email: string): Promise<users | null> {
@@ -50,7 +58,7 @@ export class User {
         });
 
         if (user) {
-            const userFormated = await this.formatUserForResponse(user)
+            const userFormated = await this.formatUser(user)
 
             return userFormated as users;
         }
@@ -58,16 +66,16 @@ export class User {
         return null;
     }
 
-    static async all() {
+    static async all(): Promise<users[]> {
         const user: users[] = await prisma.users.findMany();
 
-        let listUser: any[] = [];
+        let listUser: users[] = [];
         for (let index = 0; index < user.length; index++) {
-            const usersFormated = await this.formatUserForResponse(user[index])
-            listUser = [...listUser, usersFormated];
+            const usersFormated = await this.formatUser(user[index])
+            listUser = [...listUser, usersFormated as users];
         }
 
-        return listUser as users[];
+        return listUser;
     }
 
     static async update(id: number, data: { name?: string; password?: string; rol?: number }) {
@@ -83,7 +91,7 @@ export class User {
         });
 
         if (!user) {
-            throw new ServiceError("Ocurrió un error al eliminar el registro", code.UNPROCESSABLE);
+            throw new ServiceError("Ocurrió un error al eliminar el registro", UNPROCESSABLE);
         }
 
         return true;

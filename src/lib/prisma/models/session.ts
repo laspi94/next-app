@@ -1,14 +1,15 @@
-import { NextApiRequest } from "next";
 import { randomBytes } from "crypto";
 import { users } from "@prisma/client";
 import prisma from "../prisma";
 
 export class Session {
-    /** Recupera la sessión desde un usuario */
-    static async getFromUser(user: users, token: string) {
+
+    /** Recupera la sessión */
+    static async exist(token: string, idAddress: string, userAgent: string) {
         return await prisma.sessions.findFirst({
             where: {
-                id_user: user.id,
+                user_agent: userAgent,
+                ip_address: idAddress,
                 token: token,
             },
         });
@@ -37,6 +38,6 @@ export class Session {
 
     /** genera un token para la sesión del usuario */
     static generateToken(): string {
-        return randomBytes(50).toString("hex");
+        return randomBytes(20).toString("hex");
     }
 }

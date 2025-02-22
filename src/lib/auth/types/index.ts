@@ -1,4 +1,3 @@
-
 export type registerData = {
     name: string,
     email: string,

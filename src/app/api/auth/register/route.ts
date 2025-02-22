@@ -1,12 +1,12 @@
-import { registerUser } from "@/lib/auth/controller";
-import { registerData } from "@/lib/auth/types";
-import { ServiceErrorHandler } from "@/lib/exception";
 import { NextResponse } from "next/server";
+import { registerData } from "@/lib/auth/types";
+import { registerUser } from "@/lib/auth/controller";
+import { ServiceErrorHandler } from "@/lib/exception";
 
 export async function POST(req: Request) {
 
     try {
-        let body: registerData = await req.json();
+        const body: registerData = await req.json();
 
         const newUser = await registerUser(body);
 
