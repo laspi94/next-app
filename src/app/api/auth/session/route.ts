@@ -7,13 +7,21 @@ import { User } from "@/lib/prisma/models";
 export async function GET(req: Request) {
 
     try {
-        const authHeader = req.headers.get('Authorization');
+        const authHeader = req.headers.get("authorization");
 
         if (!authHeader) {
             throw new ServiceError("No se recibió token de acceso", BAD_REQUEST);
         }
 
+        if (!authHeader.startsWith('Bearer ')) {
+            throw new ServiceError("El formato del token es incorrecto", BAD_REQUEST);
+        }
+
         const token = authHeader.split(" ")[1]
+
+        if (!token || token.trim() === "") {
+            throw new ServiceError("Token de acceso vacío o inválido", BAD_REQUEST);
+        }
 
         const user = await session(token, req);
 

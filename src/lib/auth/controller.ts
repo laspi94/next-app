@@ -1,5 +1,5 @@
 import { compare, hash } from "bcryptjs";
-import { loginData, registerData } from "./types";
+import { loginData, registerData } from "../types";
 import { ServiceError } from "../exception";
 import { Session, User } from "@/lib/prisma/models";
 import { z } from "zod";
@@ -7,27 +7,33 @@ import { sessions, users } from "@prisma/client";
 import { SESSION_TIMEOUT } from "../enviroment";
 import { BAD_REQUEST, UNAUTHORIZE } from "../utils";
 
-const registerValidation = z.object({
-    name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-    email: z.string().email("El correo electrónico no es válido"),
-    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
-});
-
 /**
  * register
  * 
  * @param data:registerData
  * @returns newUser: @/lib/prisma/models/user
  */
+
+const registerValidation = z.object({
+    email: z.string().email("El correo electrónico no es válido"),
+    name: z.string().min(5, "El nombre debe tener al menos 5 caracteres"),
+    password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
+    confirmedPassword: z.string()
+}).refine((data) => data.password == data.confirmedPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmedPassword"]
+});
+
 export async function registerUser(data: registerData) {
 
     const parsedData = registerValidation.safeParse(data);
 
     if (!parsedData.success) {
-        throw new ServiceError(parsedData.error.errors[0].message, BAD_REQUEST);
+        throw new ServiceError(JSON.stringify(parsedData.error.errors), BAD_REQUEST);
     }
 
     const existingUser = await User.findByEmail(data.email);
+
     if (existingUser) {
         throw new ServiceError("El correo ya está registrado", BAD_REQUEST);
     }
@@ -44,11 +50,6 @@ export async function registerUser(data: registerData) {
     return newUser;
 }
 
-const loginValidation = z.object({
-    email: z.string().min(1, "El email es obligatorio"),
-    password: z.string().min(1, "La contraseña es obligatoria"),
-});
-
 /**
  * Login
  * 
@@ -56,6 +57,12 @@ const loginValidation = z.object({
  * @param req : Request
  * @returns token: string
  */
+
+const loginValidation = z.object({
+    email: z.string().min(1, "El email es obligatorio"),
+    password: z.string().min(1, "La contraseña es obligatoria"),
+});
+
 export async function login(data: loginData, req: Request) {
 
     const faileAuthMessage = "Las credenciales no coinciden con nuestros registros";
@@ -94,12 +101,10 @@ export async function login(data: loginData, req: Request) {
  * @param req : Request
  * @returns user: @/lib/prisma/models/user
  */
+
 export async function session(token: string, req: Request) {
 
-    const idAddress = req.headers.get('x-forwarded-for') ?? 'unknown';
-    const userAgent = req.headers.get('user-agent') ?? 'unknown';
-
-    const sessionExist: sessions | null = await Session.exist(token, idAddress, userAgent);
+    const sessionExist: sessions | null = await Session.exist(token);
 
     if (!sessionExist) {
         throw new ServiceError("Token no válido", UNAUTHORIZE);

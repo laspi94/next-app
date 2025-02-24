@@ -1,9 +1,9 @@
-'use Client'
+'use client'
 
-const HomePage = () => {
+export default function HomePage() {
     return (
-        <div>Home</div>
+        <>
+            Home
+        </>
     )
 }
-
-export default HomePage

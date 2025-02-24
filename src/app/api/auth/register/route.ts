@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { registerData } from "@/lib/auth/types";
+import { registerData } from "@/lib/types";
 import { registerUser } from "@/lib/auth/controller";
 import { ServiceErrorHandler } from "@/lib/exception";
 

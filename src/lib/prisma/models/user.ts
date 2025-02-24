@@ -1,4 +1,4 @@
-import { registerData } from "@/lib/auth/types";
+import { registerData } from "@/lib/types";
 import prisma from "../prisma";
 import { formatBigIntToString, UNPROCESSABLE } from "@/lib/utils";
 import { users } from "@prisma/client";
@@ -30,8 +30,8 @@ export class User {
     static async create(body: registerData) {
         const user = await prisma.users.create({
             data: {
-                name: body.name,
                 email: body.email,
+                name: body.name,
                 password: body.password,
                 id_rol: 1,
             },

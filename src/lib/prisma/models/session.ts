@@ -1,15 +1,13 @@
 import { randomBytes } from "crypto";
 import { users } from "@prisma/client";
-import prisma from "../prisma";
+import prisma from "@/lib/prisma/prisma";
 
 export class Session {
 
     /** Recupera la sessión */
-    static async exist(token: string, idAddress: string, userAgent: string) {
+    static async exist(token: string | undefined) {
         return await prisma.sessions.findFirst({
             where: {
-                user_agent: userAgent,
-                ip_address: idAddress,
                 token: token,
             },
         });
@@ -18,7 +16,7 @@ export class Session {
     /** Crea la sesión del usuario */
     static async create(user: users, req: Request) {
 
-        const idAddress = req.headers.get('x-forwarded-for');
+        const idAddress = req.headers.get('x-forwarded-for') ?? '0.0.0.0';
         const userAgent = req.headers.get('user-agent') ?? 'unknown';
 
         const session = await prisma.sessions.create({
