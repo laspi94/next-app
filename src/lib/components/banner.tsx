@@ -1,4 +1,3 @@
-import { Alert } from 'react-bootstrap';
 import { Icon } from './icon';
 import * as icons from 'react-bootstrap-icons';
 import React, { useEffect, useState } from 'react'
@@ -34,10 +33,10 @@ export function Banner({
   return (
     <>
       <div className="mt-5 mb-3" style={{ width: '100%' }}>
-        <Alert key={color} variant={color} show={isVisible} dismissible={true} onClose={() => setIsVisible(false)}>
+        <div className={`alert alert-${color} fade ${isVisible ? 'show' : ''}`} role="alert">
           <Icon iconName={icon} size={iconSize} className={iconClassName} />
           {message}
-        </Alert>
+        </div>
       </div>
     </>
   );

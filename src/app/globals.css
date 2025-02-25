@@ -1,4 +1,4 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+/* @import 'bootstrap/dist/css/bootstrap.min.css'; */
 
 nextjs-portal {
   position: absolute;
@@ -37,4 +37,12 @@ html {
 .control-label.required::after {
   content: " *" !important;
   color: red !important;
+}
+
+.btn-close{
+  font-size: 10px;
+}
+
+.alert{
+  padding: 13px;
 }

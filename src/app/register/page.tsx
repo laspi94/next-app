@@ -60,7 +60,7 @@ export default function LoginPage() {
         <>
             <div className="d-flex flex-column justify-content-center">
                 <div className="text-center" style={{ marginTop: '10vh' }}>
-                    <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} />
+                    <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} priority />
                 </div>
 
                 <div className="mx-auto" style={{ width: '350px' }}>
@@ -124,12 +124,12 @@ export default function LoginPage() {
                         </div>
 
                         <div>
-                            <button
-                                type="submit"
-                                className="w-100 btn btn-primary mt-4"
-                            >
+                            <button type="submit" className="w-100 btn btn-primary mt-4">
                                 Sign In
                             </button>
+                        </div>
+                        <div className='text-center mt-2'>
+                            <p>You have an account? <a href='/loign'>log in</a></p>
                         </div>
                     </form>
                 </div>

@@ -57,12 +57,12 @@ export default function LoginPage() {
     return (<>
         <div className="d-flex flex-column justify-content-center">
             <div className="text-center" style={{ marginTop: '20vh' }}>
-                <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} />
+                <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} priority />
             </div>
 
             <div className="mx-auto" style={{ width: '350px' }}>
 
-                <Banner message={error} color={'warning'} />
+                <Banner message={error} color={'warning'} icon={'ExclamationLg'} />
 
                 <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-3">
@@ -93,12 +93,15 @@ export default function LoginPage() {
                         {errors.password && <p className="text-danger">{errors.password}</p>}
                     </div>
                     <div>
-                        <button
-                            type="submit"
-                            className="w-100 btn btn-primary mt-4"
-                        >
+                        <button type="submit" className="w-100 btn btn-primary mt-4">
                             Log In
                         </button>
+                    </div>
+                    <div>
+                        <a className='text-secondary forgot-passwod' href='/register'>forgot password?</a>
+                    </div>
+                    <div className='text-center mt-2'>
+                        <p>Not member? <a href='/register'>Register</a></p>
                     </div>
                 </form>
             </div>

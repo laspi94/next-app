@@ -117,6 +117,8 @@ export async function session(token: string, req: Request) {
         throw new ServiceError("El token de autenticación ha expirado", UNAUTHORIZE);
     }
 
+    await Session.updateLastActivity(sessionExist.id);
+
     const user: users = await User.findById(Number(sessionExist.id_user));
 
     return user;
