@@ -39,10 +39,14 @@ html {
   color: red !important;
 }
 
-.btn-close{
+.btn-close:focus {
+  box-shadow: none !important;
+}
+
+.btn-close {
   font-size: 10px;
 }
 
-.alert{
+.alert {
   padding: 13px;
 }

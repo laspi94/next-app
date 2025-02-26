@@ -16,12 +16,14 @@ type Inputs = {
 export default function LoginPage() {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [error, setError] = useState<string | null>('');
+    const [isLoading, setLoading] = useState(false);
 
     const { register, handleSubmit } = useForm<Inputs>({
         shouldUseNativeValidation: false,
     });
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        setLoading(true);
         setError(null);
         setErrors({});
 
@@ -48,6 +50,7 @@ export default function LoginPage() {
                 setError(result.message);
             }
 
+            setLoading(false);
             return;
         }
 
@@ -93,8 +96,8 @@ export default function LoginPage() {
                         {errors.password && <p className="text-danger">{errors.password}</p>}
                     </div>
                     <div>
-                        <button type="submit" className="w-100 btn btn-primary mt-4">
-                            Log In
+                        <button type="submit" className={`btn btn-primary mt-4 w-100 ${isLoading ? 'disabled' : ''}`}>
+                            {isLoading ? <div className="spinner-border text-light spinner-border-sm" role="status"></div> : 'Log in'}
                         </button>
                     </div>
                     <div>

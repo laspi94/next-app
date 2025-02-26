@@ -35,7 +35,7 @@ export async function registerUser(data: registerData) {
     const existingUser = await User.findByEmail(data.email);
 
     if (existingUser) {
-        throw new ServiceError("El correo ya está registrado", BAD_REQUEST);
+        throw new ServiceError("El correo ya está en uso", BAD_REQUEST);
     }
 
     const hashedPassword = await hash(data.password, 10);
@@ -65,7 +65,7 @@ const loginValidation = z.object({
 
 export async function login(data: loginData, req: Request) {
 
-    const faileAuthMessage = "Las credenciales no coinciden con nuestros registros";
+    const faileAuthMessage = "Las credenciales no coinciden";
 
     const parsedData = loginValidation.safeParse(data);
 

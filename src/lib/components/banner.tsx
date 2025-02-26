@@ -33,9 +33,11 @@ export function Banner({
   return (
     <>
       <div className="mt-5 mb-3" style={{ width: '100%' }}>
-        <div className={`alert alert-${color} fade ${isVisible ? 'show' : ''}`} role="alert">
+        <div className={`alert alert-${color} alert-dismissible fade ${isVisible ? 'show' : ''}`} role="alert">
+
           <Icon iconName={icon} size={iconSize} className={iconClassName} />
           {message}
+          <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setIsVisible(false)} />
         </div>
       </div>
     </>

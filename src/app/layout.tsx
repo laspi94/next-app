@@ -32,7 +32,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <Script src="/js/bootstrap/bootstrap-5.3.3.bundle.min.js" />
+        <Script type="module" src="/js/bootstrap/bootstrap-5.3.3.bundle.min.js" />
       </body>
     </html>
   );
