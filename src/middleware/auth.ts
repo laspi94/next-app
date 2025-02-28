@@ -13,13 +13,14 @@ export async function authMiddleware(req: NextRequest) {
         return;
     }
 
-    const cookies = req.cookies.get("session_token");
+    const session = req.cookies.get("session_token");
+    const user = req.cookies.get("session_user");
 
-    if (!cookies) {
-        return NextResponse.redirect(new URL("/login", req.url));
+    if (!session) {
+        return NextResponse.rewrite(new URL("/login", req.url));
     }
 
-    const token = JSON.parse(cookies.value);
+    const token = JSON.parse(session.value);
 
     const response = await fetch(new URL("/api/auth/session", req.url), {
         method: "GET",
@@ -32,6 +33,6 @@ export async function authMiddleware(req: NextRequest) {
     const result = await response.json();
 
     if (result.code !== OK) {
-        return NextResponse.redirect(new URL("/login", req.url));
+        return NextResponse.rewrite(new URL("/login", req.url));
     }
 }

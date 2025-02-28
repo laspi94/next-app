@@ -29,7 +29,7 @@ export async function redirectIfAuthenticateMiddleware(req: NextRequest) {
         const result = await response.json();
 
         if (result.code === OK) {
-            return NextResponse.redirect(new URL("/home", req.url));
+            return NextResponse.rewrite(new URL("/home", req.url));
         }
     }
 }

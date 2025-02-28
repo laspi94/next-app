@@ -6,16 +6,18 @@
     "dev": "rm -rf .next && cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^3.0.1",
+    "eventemitter3": "^5.0.1",
     "next": "15.1.7",
+    "overlayscrollbars": "^2.11.1",
     "prisma": "^6.3.1",
     "react": "^19.0.0",
-    "react-bootstrap-icons": "^1.11.5",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "sweetalert2": "^11.17.2",

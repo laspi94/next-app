@@ -1,12 +1,11 @@
-import * as icons from 'react-bootstrap-icons';
 
-interface IconProps extends icons.IconProps {
-    // Cannot use "name" as it is a valid SVG attribute
-    // "iconName", "filename", "icon" will do it instead
-    iconName: keyof typeof icons;
+interface IconProps {
+    icon: string
 }
 
-export function Icon({ iconName, ...props }: IconProps) {
-    const BootstrapIcon = icons[iconName];
-    return <BootstrapIcon {...props} />;
+export function Icon({ icon = 'bi bi-circle' }: IconProps) {
+    return (
+        <>
+            <i className={`nav-icon ${icon}`}></i>
+        </>);
 }

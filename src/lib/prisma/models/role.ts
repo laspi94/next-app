@@ -4,16 +4,7 @@ type newRol = {
     name: string,
 }
 
-export class Rol {
-
-    static async seed() {
-        return await prisma.roles.createMany({
-            data: [
-                { id: 1, name: "SysAdmin" },
-                { id: 2, name: "Admin" },
-            ]
-        });
-    }
+export class Role {
 
     static async create({ name }: newRol) {
         return await prisma.roles.create({

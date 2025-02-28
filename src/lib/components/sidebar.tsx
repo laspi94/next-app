@@ -1,68 +1,60 @@
+'use client'
+
+import { Icon } from "./icon";
 import Image from "next/image";
 import logo from "../../../public/img/logo.png";
-import { redirect } from "next/navigation";
-import { useRef } from "react";
+import { useMenu } from "../hooks/useMenu";
 
 export const Sidebar = () => {
 
-  const offcanvasRef = useRef<HTMLDivElement | null>(null);
-
-  function logout() {
-    const backdrop = document.querySelector(".offcanvas-backdrop");
-
-    fetch("/api/auth/logout", { method: "POST" }).then(() => {
-      if (backdrop) {
-        backdrop.remove();
-      }
-
-      redirect("/login");
-    });
-  }
+  const { menu } = useMenu();
 
   return (
-    <>
-      <a className="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-        Link with href
-      </a>
-      <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-        Button with data-bs-target
-      </button>
-
-      <div className="offcanvas offcanvas-start bg-dark text-white" tabIndex={-1} id="offcanvasExample" ref={offcanvasRef} aria-labelledby="offcanvasExampleLabel">
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-          <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div className="offcanvas-header">
-
-          <div className="row">
-            <div className="col">
-              <Image src={logo} alt="logo" width={75} height={75} />
-            </div>
-            <div className="col mt-3">
-              <h3>HaporeLabs</h3>
-            </div>
-          </div>
-
-        </div>
-        <div className="offcanvas-body">
-          <div>
-            Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-          </div>
-          <div className="dropdown mt-3">
-            <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-              Dropdown button
-            </button>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="#">Action</a></li>
-              <li><a className="dropdown-item" href="#">Another action</a></li>
-              <li><a className="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-
-          <button className="btn btn-primary btn-sm" onClick={() => logout()}></button>
-        </div>
+    <aside key={'aside-key'} className="app-sidebar bg-primary-subtle shadow" data-bs-theme="dark">
+      <div className="sidebar-brand">
+        <a href="/" className="brand-link" >
+          <Image src={logo} alt="logo" width={75} height={75} />
+          <span className="brand-text fw-light">Top Detailing</span>
+        </a>
       </div>
-    </>
+      <div className="sidebar-wrapper">
+        <nav className="mt-2">
+          <ul className="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+            {menu.map((item, i) => {
+              if (item.submenus) {
+                return <li key={i} className="nav-item">
+                  <a href="#" onClick={() => { }} className="nav-link">
+                    <i className={`nav-icon ${item.icon}`}></i>
+                    <p>
+                      {item.name}
+                      <i className="nav-arrow bi bi-chevron-right"></i>
+                    </p>
+                  </a>
+                  <ul className="nav nav-treeview">
+                    {item.submenus.map((submenu, i) =>
+                      <li key={i + 200} className="nav-item" style={{ marginLeft: '1em' }}>
+                        <a href={submenu.route} className="nav-link">
+                          <i className={`nav-icon ${submenu.icon}`}></i>
+                          <p>{submenu.name}</p>
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </li>
+              } else {
+                if (item.route) {
+                  return <li key={i} className="nav-item">
+                    <a href={item.route} className="nav-link">
+                      <Icon icon={item.icon} />
+                      <p>{item.name}</p>
+                    </a>
+                  </li>
+                }
+              }
+            })}
+          </ul>
+        </nav>
+      </div>
+    </aside>
   );
 };

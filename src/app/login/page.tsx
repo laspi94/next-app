@@ -2,7 +2,7 @@
 
 import './login.css';
 import { Banner } from "@/lib/components";
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ZodErrors } from "@/lib/types";
@@ -54,7 +54,7 @@ export default function LoginPage() {
             return;
         }
 
-        redirect('/home');
+        permanentRedirect("/home");
     };
 
     return (<>
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
             <div className="mx-auto" style={{ width: '350px' }}>
 
-                <Banner message={error} color={'warning'} icon={'ExclamationLg'} />
+                <Banner message={error} color={'warning'} />
 
                 <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-3">

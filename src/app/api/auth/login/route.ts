@@ -9,11 +9,12 @@ export async function POST(req: Request) {
   try {
     const body: loginData = await req.json();
 
-    const token = await login(body, req);
+    const { token, user } = await login(body, req);
 
     const cookieStore = await cookies();
 
     cookieStore.set("session_token", JSON.stringify(token));
+    cookieStore.set("session_user", JSON.stringify(user));
 
     return NextResponse.json({
       message: "Sesión iniciada",

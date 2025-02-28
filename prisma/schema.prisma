@@ -48,5 +48,58 @@ model roles {
   created_at DateTime  @default(now()) @db.Timestamp(0)
   updated_at DateTime? @db.Timestamp(0)
 
-  users users[]
+  users                    users[]
+  permission_form          permission_form[]
+  exclusive_permission_rol exclusive_permission_rol[]
+}
+
+model form {
+  id         BigInt    @id @default(autoincrement())
+  key        String    @unique
+  name       String
+  module     String?
+  icon       String?
+  order      Int?
+  route      String?
+  parent_key String?
+  is_menu    Boolean   @default(false)
+  is_crud    Boolean   @default(true)
+  created_at DateTime? @db.Timestamp(0)
+
+  permisos permission_form[]
+}
+
+model permission_form {
+  id         BigInt    @id @default(autoincrement())
+  id_rol     Int
+  form_key   String
+  read       Boolean   @default(false)
+  create     Boolean   @default(false)
+  delete     Boolean   @default(false)
+  update     Boolean   @default(false)
+  created_at DateTime? @db.Timestamp(0)
+
+  form  form  @relation(fields: [form_key], references: [key], onDelete: Cascade)
+  roles roles @relation(fields: [id_rol], references: [id])
+}
+
+model exclusive_permission {
+  id          BigInt    @id @default(autoincrement())
+  key         String    @unique
+  name        String
+  description String
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+
+  roles exclusive_permission_rol[]
+}
+
+model exclusive_permission_rol {
+  id                       BigInt    @id @default(autoincrement())
+  id_rol                   Int
+  exclusive_permission_key String
+  created_at               DateTime? @db.Timestamp(0)
+
+  rol                  roles                @relation(fields: [id_rol], references: [id])
+  exclusive_permission exclusive_permission @relation(fields: [exclusive_permission_key], references: [key])
 }
