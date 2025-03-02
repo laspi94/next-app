@@ -4,7 +4,6 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, use
 import Image from "next/image";
 import { AppMenu } from "./menu";
 import { AppUser } from "./user";
-import { useEffect } from "react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
@@ -26,12 +25,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     marginLeft: open ? '' : '0.4em'
   };
 
-  useEffect(() => {
-
-  }, [open])
-
   return (<>
-    <Sidebar variant={"sidebar"} collapsible="icon" {...props} >
+    <Sidebar variant={"inset"} collapsible="icon" {...props} >
       <SidebarHeader className="inline-block align-middle mt-3" style={headerStyles}>
         <a href="/dashboard" className="brand-link flex" >
           <Image src={'/img/logo.png'} alt="logo" width={logo.width} height={logo.height} />

@@ -90,7 +90,7 @@ export default function Login() {
                                 <a className='no-underline hover:underline' style={{ fontSize: '0.9em' }} href='/register'>forgot password?</a>
                             </div>
                             <div className='text-center mt-2'>
-                                <p>Don't have an account? <a className='no-underline hover:underline' href='/register'>Register</a></p>
+                                <p>Don&apos;t have an account? <a className='no-underline hover:underline' href='/register'>Register</a></p>
                             </div>
                         </form>
                     </CardContent>

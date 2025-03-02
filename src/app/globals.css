@@ -116,3 +116,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+[data-slot="sidebar-content"]::-webkit-scrollbar {
+  width: 8px;
+}
+
+[data-slot="sidebar-content"]::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px var(--destructive);
+  background-color: var(--destructive);
+}

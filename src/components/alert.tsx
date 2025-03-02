@@ -38,7 +38,7 @@ export function Banner({ title, message, hiddenDelay = 5000, showTitle = true }:
         clearTimeout(timer);
       }
     };
-  }, [message]);
+  }, [message, hiddenDelay]);
 
   return (
     <AnimatePresence>

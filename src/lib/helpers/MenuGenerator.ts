@@ -7,6 +7,7 @@ export interface MenuItem {
     icon: string;
     route: string;
     parent_key?: string;
+    isActive?: boolean,
     submenus?: MenuItem[];
 }
 
@@ -33,7 +34,7 @@ class MenuGenerator {
     }
 
     private static async havePermission(user: users, formularioKey: string): Promise<boolean> {
-        const permiso = PermissionForm.findOne(user, formularioKey);
+        const permiso = await PermissionForm.findOne(user, formularioKey);
         return permiso !== null;
     }
 

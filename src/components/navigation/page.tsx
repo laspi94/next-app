@@ -33,9 +33,9 @@ export function Page({ children }: PageProps) {
         <SidebarInset>
             <header className="flex h-16 shrink-0 items-center gap-2">
                 <div className="flex items-center gap-2 px-4">
-                    <SidebarTrigger className="-ml-1" children={
-                        <Icon iconName={open ? 'panel-right-open' : 'panel-right-close'} size={100} />
-                    } />
+                    <SidebarTrigger className="-ml-1 [&_svg:not([class*='size-'])]:size-5" style={{  }}>
+                        <Icon iconName={open ? 'panel-right-open' : 'panel-right-close'}  />
+                    </SidebarTrigger>
                     <Separator orientation="vertical" className="mr-2 h-4" />
                     <HeaderBreadcrumb />
                 </div>
