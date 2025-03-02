@@ -1,4 +1,4 @@
-import { OK } from "@/lib/utils";
+import { OK } from "@/lib/helpers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -14,7 +14,6 @@ export async function authMiddleware(req: NextRequest) {
     }
 
     const session = req.cookies.get("session_token");
-    const user = req.cookies.get("session_user");
 
     if (!session) {
         return NextResponse.rewrite(new URL("/login", req.url));

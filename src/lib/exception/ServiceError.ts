@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { INTERNAL_SERVER_ERROR } from "../utils";
+import { INTERNAL_SERVER_ERROR } from "../helpers";
 
 export class ServiceError extends Error {
     public code: number;

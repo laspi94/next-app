@@ -1,6 +1,6 @@
 import { registerData } from "@/lib/types";
 import prisma from "../prisma";
-import { formatBigIntToString, UNPROCESSABLE } from "@/lib/utils";
+import { formatBigIntToString, UNPROCESSABLE } from "@/lib/helpers";
 import { users } from "@prisma/client";
 import { ServiceError } from "@/lib/exception";
 export class User {

@@ -5,7 +5,7 @@ import { Session, User } from "@/lib/prisma/models";
 import { z } from "zod";
 import { sessions, users } from "@prisma/client";
 import { SESSION_TIMEOUT } from "../env";
-import { BAD_REQUEST, UNAUTHORIZE } from "../utils";
+import { BAD_REQUEST, UNAUTHORIZE } from "../helpers";
 
 /**
  * register

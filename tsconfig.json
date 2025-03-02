@@ -37,7 +37,7 @@
     "server.js",
     "prisma/seed.js",
     "prisma/data.js"
-  ],
+, "tailwind.config.ts"  ],
   "exclude": [
     "node_modules"
   ]

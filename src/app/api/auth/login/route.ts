@@ -1,7 +1,7 @@
 import { login } from "@/lib/controllers/authController";
 import { loginData } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { OK } from "@/lib/utils";
+import { OK } from "@/lib/helpers";
 import { ServiceErrorHandler } from "@/lib/exception";
 import { cookies } from "next/headers";
 

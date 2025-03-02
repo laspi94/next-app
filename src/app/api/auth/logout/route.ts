@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { OK } from "@/lib/utils";
+import { OK } from "@/lib/helpers";
 import { ServiceErrorHandler } from "@/lib/exception";
 
 export async function POST(req: Request) {

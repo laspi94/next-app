@@ -1,8 +1,8 @@
-import { OK, UNAUTHORIZE } from "@/lib/utils";
+import { OK, UNAUTHORIZE } from "@/lib/helpers";
 import { NextResponse } from "next/server";
 import { ServiceError, ServiceErrorHandler } from "@/lib/exception";
 import { cookies } from "next/headers";
-import { MenuGenerator } from "@/lib/utils/MenuGenerator";
+import { MenuGenerator } from "@/lib/helpers/MenuGenerator";
 
 export async function GET(req: Request) {
     try {

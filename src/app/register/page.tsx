@@ -1,12 +1,16 @@
 "use client";
 
-import { Banner } from "@/lib/components";
-import { permanentRedirect } from "next/navigation";
+import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ZodErrors } from "@/lib/types";
 import Image from "next/image";
-import './register.css';
+import { AuthLayout } from '@/components/layouts';
+import { Banner, LoadingSpinner } from '@/components';
 
 type Inputs = {
     email: string
@@ -56,87 +60,51 @@ export default function LoginPage() {
             return;
         }
 
-        permanentRedirect('/login');
+        redirect('/login');
     };
 
     return (
-        <>
-            <div className="d-flex flex-column justify-content-center">
-                <div className="text-center" style={{ marginTop: '10vh' }}>
-                    <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} priority />
-                </div>
-
-                <div className="mx-auto" style={{ width: '350px' }}>
-
-                    <Banner message={error} color={'warning'} />
-
-                    <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="mb-3">
-                            <label htmlFor="email" className="control-label required">
-                                Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                {...register("email")}
-                                autoComplete="email"
-                                className="form-control"
-                            />
-                            {errors.email && <p className="text-danger">{errors.email}</p>}
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="name" className="control-label required">
-                                Nombre
-                            </label>
-                            <input
-                                id="name"
-                                {...register("name")}
-                                autoComplete="name"
-                                className="form-control"
-                            />
-                            {errors.name && <p className="text-danger">{errors.name}</p>}
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="password" className="control-label required">
-                                Contraseña
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                {...register("password")}
-                                autoComplete="current-password"
-                                className="form-control"
-                            />
-                            {errors.password && <p className="text-danger">{errors.password}</p>}
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="confirmedPassword" className="control-label required">
-                                Confirmar contraseña
-                            </label>
-                            <input
-                                id="confirmedPassword"
-                                type="password"
-                                {...register("confirmedPassword")}
-                                autoComplete="current-confirmedPassword"
-                                className="form-control"
-                            />
-                            {errors.confirmedPassword && <p className="text-danger">{errors.confirmedPassword}</p>}
-                        </div>
-
-                        <div>
-                            <button type="submit" className={`w-100 btn btn-primary mt-4 ${isLoading ? 'disabled' : ''}`}>
-                                {isLoading ? <div className="spinner-border text-light spinner-border-sm" role="status"></div> : 'Sign In'}
-                            </button>
-                        </div>
-                        <div className='text-center mt-2'>
-                            <p>You have an account? <a href='/loign'>log in</a></p>
-                        </div>
-                    </form>
-                </div>
+        <AuthLayout>
+            <div className="flex items-center justify-center min-h-screen">
+                <Card className="w-96 shadow-md">
+                    <CardHeader>
+                        <Image src="/img/logo.png" alt="Logo" className="mx-auto" width={150} height={150} priority />
+                        <CardTitle className='text-center'>Top Detailing</CardTitle>
+                        <Banner message={error} showTitle={false} />
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                            <div>
+                                <Label htmlFor="email" className='mb-3'>Email</Label>
+                                <Input id="email" type="email" {...register("email")} />
+                                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                            </div>
+                            <div>
+                                <Label htmlFor="name" className='mb-3'>Name</Label>
+                                <Input id="name" type="name" {...register("name")} />
+                                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                            </div>
+                            <div>
+                                <Label htmlFor="password" className='mb-3'>Password</Label>
+                                <Input id="password" type="password" {...register("password")} />
+                                {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                            </div>
+                            <div>
+                                <Label htmlFor="confirmedPassword" className='mb-3'>Password Confirm </Label>
+                                <Input id="confirmedPassword" type="password" {...register("confirmedPassword")} />
+                                {errors.confirmedPassword && <p className="text-red-500 text-sm">{errors.confirmedPassword}</p>}
+                            </div>
+                            <Button type="submit" className="w-full" disabled={isLoading}>
+                                {isLoading ? <LoadingSpinner /> : 'Register'}
+                            </Button>
+                            <div className='text-center mt-2'>
+                                <p>You have an account? <a className='no-underline hover:underline' href='/loign'>log in</a></p>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
             </div>
-        </>
+        </AuthLayout>
+
     );
 }

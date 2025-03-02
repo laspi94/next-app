@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation";
-import { MenuItem } from "../utils/MenuGenerator";
+import { MenuItem } from "../helpers/MenuGenerator";
 
 export const useMenu = () => {
-    const pathname = usePathname();
 
     const [menu, setMenu] = useState<MenuItem[]>([]);
 
@@ -33,8 +31,7 @@ export const useMenu = () => {
     }, [])
 
     return {
-        menu,
-        currentPath: pathname
+        menu
     }
 
 }

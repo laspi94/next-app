@@ -1,4 +1,4 @@
-import { BAD_REQUEST, OK } from "@/lib/utils";
+import { BAD_REQUEST, OK } from "@/lib/helpers";
 import { NextResponse } from "next/server";
 import { ServiceError, ServiceErrorHandler } from "@/lib/exception";
 import { session } from "@/lib/controllers/authController";

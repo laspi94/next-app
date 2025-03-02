@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { users } from "@prisma/client";
-import { getCookie } from "../utils";
+import { getCookie } from "../helpers";
 
 export const useUser = () => {
     const [user, setUser] = useState<users>();

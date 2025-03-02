@@ -1,4 +1,4 @@
-import { OK } from "@/lib/utils";
+import { OK } from "@/lib/helpers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -29,7 +29,7 @@ export async function redirectIfAuthenticateMiddleware(req: NextRequest) {
         const result = await response.json();
 
         if (result.code === OK) {
-            return NextResponse.rewrite(new URL("/home", req.url));
+            return NextResponse.rewrite(new URL("/dashboard", req.url));
         }
     }
 }
